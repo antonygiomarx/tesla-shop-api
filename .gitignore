@@ -39,3 +39,7 @@ lerna-debug.log*
 
 # databases
 data
+
+# lock files
+package-lock.json
+yarn.lock
