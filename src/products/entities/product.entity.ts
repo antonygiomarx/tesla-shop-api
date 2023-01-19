@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Product {
@@ -27,7 +27,6 @@ export class Product {
 
   @Column('text', {
     unique: true,
-    nullable: true,
   })
   slug: string;
 
@@ -53,4 +52,12 @@ export class Product {
     default: new Date(),
   })
   updatedAt: Date;
+
+  @BeforeInsert()
+  checkSlugInsert() {
+    if (!this.slug) {
+      this.slug = this.name;
+    }
+    this.slug = this.slug.replace(/\s/g, '_').toLowerCase();
+  }
 }
