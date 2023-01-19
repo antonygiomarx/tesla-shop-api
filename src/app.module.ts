@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './products/products.module';
+import { HandleExceptionsService } from './shared/handle-exceptions/handle-exceptions.service';
 
 @Module({
   imports: [
@@ -22,5 +23,6 @@ import { ProductsModule } from './products/products.module';
   ],
   controllers: [AppController],
   providers: [AppService],
+  providers: [AppService, HandleExceptionsService],
 })
 export class AppModule {}
