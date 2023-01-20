@@ -1,4 +1,11 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { NormalizeSlugUtil } from '../../shared/util/normalize-slug.util';
 
 @Entity()
 export class Product {
@@ -30,18 +37,27 @@ export class Product {
   })
   slug: string;
 
-  @Column('text', {
+  @Column('int', {
     default: 0,
   })
   stock: number;
 
   @Column('text', {
     array: true,
+    nullable: true,
   })
   sizes: string[];
 
-  @Column('text')
+  @Column('text', {
+    nullable: true,
+  })
   gender: string;
+
+  @Column('text', {
+    array: true,
+    default: [],
+  })
+  tags: string[];
 
   @Column('date', {
     default: new Date(),
@@ -58,6 +74,14 @@ export class Product {
     if (!this.slug) {
       this.slug = this.name;
     }
-    this.slug = this.slug.replace(/\s/g, '_').toLowerCase();
+    this.slug = NormalizeSlugUtil.normalize(this.slug);
+  }
+
+  @BeforeUpdate()
+  checkSlugUpdate() {
+    if (!this.slug) {
+      this.slug = this.name;
+    }
+    this.slug = NormalizeSlugUtil.normalize(this.slug);
   }
 }
