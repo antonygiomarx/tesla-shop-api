@@ -49,7 +49,7 @@ export class ProductsService {
       const query = this.productsRepository.createQueryBuilder('product');
 
       product = await query
-        .where('product.slug = :slug or product.name = :name', {
+        .where('product.slug = :slug or LOWER(product.name) = LOWER(:name)', {
           slug: id,
           name: id,
         })
@@ -64,7 +64,24 @@ export class ProductsService {
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
-    return await this.productsRepository.update(id, updateProductDto);
+    try {
+      const product = await this.productsRepository.preload({
+        id,
+        ...updateProductDto,
+      });
+
+      if (!product) {
+        throw new NotFoundException(`Product ${id} not found`);
+      }
+      await this.productsRepository.save(product);
+
+      return product;
+    } catch (error) {
+      this.handleExceptionsService.handleDatabaseError(
+        error,
+        ProductsService.name,
+      );
+    }
   }
 
   async remove(id: string) {
