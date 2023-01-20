@@ -3,9 +3,11 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { NormalizeSlugUtil } from '../../shared/util/normalize-slug.util';
+import { ProductImage } from './product-image.entity';
 
 @Entity()
 export class Product {
@@ -20,17 +22,18 @@ export class Product {
   @Column('text', {
     nullable: true,
   })
-  description: string;
+  description?: string;
 
   @Column('int', {
     default: 0,
   })
-  price: number;
+  price?: number;
 
-  @Column('text', {
-    nullable: true,
+  @OneToMany(() => ProductImage, (productImage) => productImage.product, {
+    cascade: true,
+    eager: true,
   })
-  image: string;
+  images?: ProductImage[];
 
   @Column('text', {
     unique: true,
@@ -40,24 +43,24 @@ export class Product {
   @Column('int', {
     default: 0,
   })
-  stock: number;
+  stock?: number;
 
   @Column('text', {
     array: true,
     nullable: true,
   })
-  sizes: string[];
+  sizes?: string[];
 
   @Column('text', {
     nullable: true,
   })
-  gender: string;
+  gender?: string;
 
   @Column('text', {
     array: true,
     default: [],
   })
-  tags: string[];
+  tags?: string[];
 
   @Column('date', {
     default: new Date(),

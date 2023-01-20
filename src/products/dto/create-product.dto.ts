@@ -15,7 +15,7 @@ export class CreateProductDto {
 
   @IsString()
   @IsOptional()
-  description: string;
+  description?: string;
 
   @IsNumber()
   @IsPositive()
@@ -24,28 +24,29 @@ export class CreateProductDto {
 
   @IsString()
   @IsOptional()
-  image: string;
-
-  @IsString()
-  @IsOptional()
   slug: string;
 
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  stock: number;
+  stock?: number;
 
   @IsString({ each: true })
   @IsArray()
   @IsOptional()
-  sizes: string[];
+  sizes?: string[];
 
   @IsIn(['men', 'women', 'kid', 'unisex'])
   @IsOptional()
-  gender: string;
+  gender?: string;
 
   @IsString({ each: true })
   @IsArray()
   @IsOptional()
-  tags: string[];
+  tags?: string[];
+
+  @IsString({ each: true })
+  @IsArray()
+  @IsOptional()
+  images?: string[];
 }
