@@ -9,7 +9,9 @@ import {
 import { NormalizeSlugUtil } from '../../shared/util/normalize-slug.util';
 import { ProductImage } from './product-image.entity';
 
-@Entity()
+@Entity({
+  name: 'products',
+})
 export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
