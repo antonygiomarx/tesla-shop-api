@@ -43,3 +43,6 @@ data
 # lock files
 package-lock.json
 yarn.lock
+
+# static files
+static
