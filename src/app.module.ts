@@ -8,6 +8,7 @@ import { HandleExceptionsService } from './shared/handle-exceptions/handle-excep
 import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { FilesModule } from './files/files.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { FilesModule } from './files/files.module';
     CommonModule,
     SeedModule,
     FilesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, HandleExceptionsService],
