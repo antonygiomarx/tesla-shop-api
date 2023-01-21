@@ -46,3 +46,6 @@ yarn.lock
 
 # static files
 static
+
+#husky
+.husky
