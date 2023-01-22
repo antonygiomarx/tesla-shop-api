@@ -3,12 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductsModule } from './products/products.module';
-import { HandleExceptionsService } from './shared/handle-exceptions/handle-exceptions.service';
-import { CommonModule } from './common/common.module';
-import { SeedModule } from './seed/seed.module';
-import { FilesModule } from './files/files.module';
-import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './modules/products/products.module';
+import { HandleExceptionsService } from './modules/common/exceptions/handle-exceptions.service';
+import { CommonModule } from './modules/common/common.module';
+import { SeedModule } from './modules/seed/seed.module';
+import { FilesModule } from './modules/files/files.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { AuthModule } from './auth/auth.module';
     SeedModule,
     FilesModule,
     AuthModule,
+    PassportModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService, HandleExceptionsService],
