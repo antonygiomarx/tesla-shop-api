@@ -10,4 +10,14 @@ export class UsersMapper {
       email,
     };
   }
+
+  static from(keys: (keyof User)[], user: User): UsersMapper {
+    return keys.reduce((acc, key) => {
+      if (user[key]) {
+        acc[key] = user[key];
+      }
+
+      return acc;
+    }, {});
+  }
 }

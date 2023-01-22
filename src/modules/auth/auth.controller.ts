@@ -30,9 +30,9 @@ export class AuthController {
     return this.authService.login(user);
   }
 
-  @Get()
-  @Auth(Role.SUPER_ADMIN)
-  async getHello(@User() user) {
-    return user;
+  @Get('authStatus')
+  @Auth()
+  async authStatus(@CurrentUser() user: User) {
+    return this.authService.authStatus(user);
   }
 }

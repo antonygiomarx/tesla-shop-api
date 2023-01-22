@@ -12,6 +12,7 @@ import { EncryptUtil } from './utils/encrypt.util';
 import { JwtPayload } from './interfaces';
 import { UsersMapper } from '../users/mappers/users.mapper';
 import { UsersService } from '../users/users.service';
+import { User } from '../users/entities';
 
 @Injectable()
 export class AuthService {
@@ -57,6 +58,16 @@ export class AuthService {
       token: await this.generateToken({
         id: userCreated.id,
       }),
+    };
+  }
+
+  async authStatus(user: User) {
+    return {
+      ...UsersMapper.from(
+        ['id', 'name', 'email', 'roles', 'active', 'createdAt', 'updatedAt'],
+        user,
+      ),
+      token: await this.generateToken({ id: user.id }),
     };
   }
 
