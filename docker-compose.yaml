@@ -13,3 +13,26 @@ services:
     ports:
       - "${DB_PORT}:${DB_PORT}"
     container_name: tesla
+
+  app:
+    build: .
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      DB_HOST: db
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      APP_PORT: ${PORT}
+      HOST: ${HOST}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      JWT_COOKIE_EXPIRES_IN: ${JWT_COOKIE_EXPIRES_IN}
+    depends_on:
+      - db
+    container_name: tesla-app
+
