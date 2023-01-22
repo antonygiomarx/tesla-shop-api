@@ -33,24 +33,27 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-4. Run migrations
+4. Create User
 
 ```bash
-$ npm run typeorm migration:run
+
+# create user
+
+$ curl -X POST \
+  http://localhost:3000/api/auth/signup \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "email": ""
+    "password": ""
+}'
+
 ```
 
-5. Run tests
+5. Run Seed with token
 
 ```bash
-
-# unit tests
-$ npm run test
-    
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ curl http://localhost:3000/api/seed
+      -H "Authorization: Bearer <token>"
 ```
 
 # Docker
