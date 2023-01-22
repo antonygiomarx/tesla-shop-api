@@ -2,7 +2,7 @@ import { CreateUserDto, UpdateUserDto } from '../dto';
 import { EncryptUtil } from '../../auth/utils/encrypt.util';
 import { User } from '../entities';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { FindOptionsWhere, Not, Repository } from 'typeorm';
 import { HandleExceptionsService } from '../../common/exceptions/handle-exceptions.service';
 import { Logger, NotFoundException } from '@nestjs/common';
 
@@ -106,5 +106,26 @@ export class UsersRepository {
     const userFound = await this.findOneAndReturnEntity(id);
 
     return await this.userRepository.remove(userFound);
+  }
+
+  async removeAll() {
+    return await this.userRepository.delete({});
+  }
+
+  async createMany(users: User[]) {
+    const hashUsersPassword = users.map(async (user) => {
+      const password = await EncryptUtil.encrypt(user.password);
+      return { ...user, password };
+    });
+
+    const usersHashed = await Promise.all(hashUsersPassword);
+
+    return await this.userRepository.save(usersHashed);
+  }
+
+  async removeAllExceptAdmin(user: User) {
+    return await this.userRepository.delete({
+      id: Not(user.id),
+    });
   }
 }

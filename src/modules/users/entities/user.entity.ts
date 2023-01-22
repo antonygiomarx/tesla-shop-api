@@ -46,9 +46,9 @@ export class User {
   updatedAt: Date;
 
   @OneToMany(() => Product, (product) => product.user, {
-    eager: true,
+    cascade: true,
   })
-  products: Product[];
+  products?: Product[];
 
   @BeforeInsert()
   normalizeEmail() {

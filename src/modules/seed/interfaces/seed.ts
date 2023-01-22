@@ -1,3 +1,5 @@
+import { User } from '../../users/entities';
+
 export interface SeedProduct {
   description: string;
   images: string[];
@@ -16,4 +18,5 @@ export type ValidTypes = 'shirts' | 'pants' | 'hoodies' | 'hats';
 
 export interface SeedData {
   products: SeedProduct[];
+  users: Partial<User>[];
 }
