@@ -12,11 +12,18 @@ import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileFilterHelper } from './helpers/file-filter.helper';
 import { Response } from 'express';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Tag } from '../docs/strategies/swagger.strategy';
 
+@ApiTags(Tag.FILES)
 @Controller('files')
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
 
+  @ApiResponse({
+    status: 200,
+    description: 'The file has been successfully uploaded.',
+  })
   @Post('product')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -28,6 +35,10 @@ export class FilesController {
     return this.filesService.create(file);
   }
 
+  @ApiResponse({
+    status: 200,
+    description: 'The file has been successfully served.',
+  })
   @Get('product/:filename')
   @UseInterceptors(
     FileInterceptor('file', {

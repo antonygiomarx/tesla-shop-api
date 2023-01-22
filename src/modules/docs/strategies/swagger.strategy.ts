@@ -8,6 +8,14 @@ import { VersionUtil } from '../../util/version.util';
 
 export type DefaultSwaggerConfig = Omit<OpenAPIObject, 'paths'>;
 
+export enum Tag {
+  AUTH = 'Auth',
+  USERS = 'Users',
+  PRODUCTS = 'Products',
+  SEED = 'Seed',
+  FILES = 'Files',
+}
+
 export class SwaggerStrategy {
   static config(): DefaultSwaggerConfig {
     return {
@@ -34,17 +42,22 @@ export class SwaggerStrategy {
           name: 'Products',
           description: 'Products related endpoints',
         },
-      ],
-      security: [
         {
-          bearerAuth: [],
+          name: 'Seed',
+          description: 'Seed related endpoints',
+        },
+        {
+          name: 'Files',
+          description: 'Files related endpoints',
         },
       ],
     };
   }
 
   static options(): SwaggerDocumentOptions {
-    return {};
+    return {
+      ignoreGlobalPrefix: true,
+    };
   }
 
   static setup(app: INestApplication) {
