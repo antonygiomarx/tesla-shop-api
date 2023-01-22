@@ -11,6 +11,7 @@ import {
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileFilterHelper } from './helpers/file-filter.helper';
+import { Response } from 'express';
 
 @Controller('files')
 export class FilesController {
@@ -34,7 +35,7 @@ export class FilesController {
       storage: FileFilterHelper.storage,
     }),
   )
-  async serveFile(@Param('filename') filename: string, @Res() res) {
+  async serveFile(@Param('filename') filename: string, @Res() res: Response) {
     const file = this.filesService.serveFile(filename);
 
     return res.sendFile(file);

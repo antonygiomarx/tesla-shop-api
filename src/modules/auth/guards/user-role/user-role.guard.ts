@@ -8,6 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core';
 import { ROLES_METADATA_KEY } from '../../interfaces';
+import { User } from '../../../users/entities';
 
 @Injectable()
 export class UserRoleGuard implements CanActivate {
@@ -27,7 +28,7 @@ export class UserRoleGuard implements CanActivate {
       return true;
     }
 
-    const user = context.switchToHttp().getRequest().user;
+    const user = context.switchToHttp().getRequest().user as User;
 
     if (!user) {
       throw new BadRequestException(

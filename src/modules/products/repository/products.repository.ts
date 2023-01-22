@@ -70,14 +70,17 @@ export class ProductsRepository {
       relations: ['images'],
     });
 
-    return products.map(({ images, ...product }) => ({
-      ...product,
-      images: images.map((image) => image.url),
-    }));
+    return products.map(({ images, ...product }) => {
+      if (!images) images = [];
+      return {
+        ...product,
+        images: images.map((image) => image.url),
+      };
+    });
   }
 
   async findOne(id: string) {
-    let product: Product;
+    let product: Product | null;
 
     if (isUUID(id)) {
       product = await this.productsRepository.findOne({

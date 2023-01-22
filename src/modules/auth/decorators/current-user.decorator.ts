@@ -3,6 +3,7 @@ import {
   createParamDecorator,
   ExecutionContext,
 } from '@nestjs/common';
+import { User } from '../../users/entities';
 
 export const CurrentUser = createParamDecorator(
   (data, ctx: ExecutionContext) => {
@@ -35,6 +36,6 @@ export const CurrentUser = createParamDecorator(
       );
     }
 
-    return info;
+    return info as User;
   },
 );

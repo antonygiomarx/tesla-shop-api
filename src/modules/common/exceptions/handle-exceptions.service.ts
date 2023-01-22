@@ -9,7 +9,7 @@ import {
 export class HandleExceptionsService {
   private logger = new Logger();
 
-  handleDatabaseError(error, name?: string) {
+  handleDatabaseError(error: any, name?: string) {
     if (name) this.logger = new Logger(name);
 
     switch (error.code) {

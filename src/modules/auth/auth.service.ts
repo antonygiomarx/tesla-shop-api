@@ -51,7 +51,7 @@ export class AuthService {
   }
 
   async signup(user: CreateUserDto) {
-    const userCreated = await this.userService.create(user);
+    const userCreated = (await this.userService.create(user)) as User;
 
     return {
       ...UsersMapper.map(userCreated),

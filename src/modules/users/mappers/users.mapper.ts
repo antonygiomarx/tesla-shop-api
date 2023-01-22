@@ -11,13 +11,13 @@ export class UsersMapper {
     };
   }
 
-  static from(keys: (keyof User)[], user: User): UsersMapper {
+  static from(keys: (keyof User)[], user: User): Partial<User> {
     return keys.reduce((acc, key) => {
       if (user[key]) {
-        acc[key] = user[key];
+        (<string>acc[key]) = user[key] as string;
       }
 
       return acc;
-    }, {});
+    }, {} as User);
   }
 }

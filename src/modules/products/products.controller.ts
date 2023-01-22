@@ -14,6 +14,7 @@ import { CreateProductDto, UpdateProductDto } from './dto';
 import { PaginationDto } from '../common/dtos/pagination.dto';
 import { Auth, CurrentUser } from '../auth/decorators';
 import { Role } from '../auth/interfaces';
+import { User } from '../users/entities';
 
 @Controller('products')
 export class ProductsController {
@@ -21,7 +22,10 @@ export class ProductsController {
 
   @Post()
   @Auth()
-  create(@Body() createProductDto: CreateProductDto, @CurrentUser() user) {
+  create(
+    @Body() createProductDto: CreateProductDto,
+    @CurrentUser() user: User,
+  ) {
     return this.productsService.create({ ...createProductDto, user });
   }
 
@@ -42,7 +46,7 @@ export class ProductsController {
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateProductDto: UpdateProductDto,
-    @CurrentUser() user,
+    @CurrentUser() user: User,
   ) {
     return this.productsService.update(id, { ...updateProductDto, user });
   }
