@@ -77,9 +77,10 @@ export class Product {
   updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.products, {
-    cascade: true,
+    onDelete: 'CASCADE',
+    eager: true,
   })
-  user: User;
+  user?: User;
 
   @BeforeInsert()
   checkSlugInsert() {

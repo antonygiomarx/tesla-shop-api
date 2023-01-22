@@ -12,7 +12,7 @@ import {
 import { ProductsService } from './products.service';
 import { CreateProductDto, UpdateProductDto } from './dto';
 import { PaginationDto } from '../common/dtos/pagination.dto';
-import { Auth } from '../auth/decorators';
+import { Auth, CurrentUser } from '../auth/decorators';
 import { Role } from '../auth/interfaces';
 
 @Controller('products')
@@ -21,8 +21,8 @@ export class ProductsController {
 
   @Post()
   @Auth()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productsService.create(createProductDto);
+  create(@Body() createProductDto: CreateProductDto, @CurrentUser() user) {
+    return this.productsService.create({ ...createProductDto, user });
   }
 
   @Get()
@@ -42,8 +42,9 @@ export class ProductsController {
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateProductDto: UpdateProductDto,
+    @CurrentUser() user,
   ) {
-    return this.productsService.update(id, updateProductDto);
+    return this.productsService.update(id, { ...updateProductDto, user });
   }
 
   @Delete(':id')
