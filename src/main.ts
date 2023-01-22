@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { DocsBuilder } from './modules/docs/docs.builder';
 
 const logger = new Logger('NestApplication');
 
@@ -12,9 +13,11 @@ export class NestApplication {
 
     app.useGlobalPipes(new ValidationPipe());
 
+    app.setGlobalPrefix('api');
+
     app.enableCors();
 
-    app.setGlobalPrefix('api');
+    DocsBuilder.setup(app);
 
     await app.listen(this.port);
   }
