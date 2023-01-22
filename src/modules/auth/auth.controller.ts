@@ -7,10 +7,10 @@ import {
   Post,
 } from '@nestjs/common';
 import { CreateUserDto, LoginDto } from './dtos';
-import { Auth, User } from './decorators';
-import { Role } from './interfaces';
+import { Auth, CurrentUser } from './decorators';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
+import { User } from '../users/entities';
 
 @Controller('auth')
 export class AuthController {

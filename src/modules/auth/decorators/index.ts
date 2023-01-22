@@ -1,4 +1,4 @@
 export { Auth } from './auth.decorator';
-export { User } from './get-user.decorator';
+export { CurrentUser } from './current-user.decorator';
 export { Role } from './role.decorator';
 export { RawHeaders } from './raw-header.decorator';
