@@ -61,7 +61,7 @@ $ curl http://localhost:3000/api/seed
 1. Build the image
 
 ```bash
-$ docker build -t nestjs-starter .
+$ docker compose up -d
 ```
 
 2. Run the container
