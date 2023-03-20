@@ -70,5 +70,3 @@ $ docker compose up -d
 $ docker run -p 3000:3000 nestjs-starter
 ```
 
-
-
